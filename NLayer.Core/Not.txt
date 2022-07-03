@@ -1,0 +1,5 @@
+﻿https://www.udemy.com/course/asp-net-core-api-web-cok-katmanli-mimari-api-best-practices/learn/lecture/30395894#overview
+Ders 31 yapıldı.
+EfCore nuget üzerinden yüklüyoruz.
+EfCore Sql server paketini mssql kullanmak için yüklüyoruz.
+EfCore Tools ise package console manager üzerinden migration işlemlerini yürütmek için kullanılmaktadır.
