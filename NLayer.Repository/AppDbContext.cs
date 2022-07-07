@@ -1,14 +1,14 @@
-﻿using System.Reflection;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using NLayer.Core;
+using System.Reflection;
 
 namespace NLayer.Repository
 {
-    public class AppDbContext:DbContext
+    public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options):base(options)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            
+
         }
 
         public DbSet<Category> Categories { get; set; }
@@ -16,6 +16,32 @@ namespace NLayer.Repository
         public DbSet<Product> Products { get; set; }
 
         public DbSet<ProductFeature> ProductFeatures { get; set; }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            foreach (var item in ChangeTracker.Entries())
+            {
+                if (item.Entity is BaseEntity entityReferance)
+                {
+                    switch (item.State)
+                    {
+                        case EntityState.Added:
+                        {
+                            entityReferance.CreatedDate=DateTime.Now;
+                            break;
+                        }
+                        case EntityState.Modified:
+                        {
+                            Entry(entityReferance).Property(x => x.CreatedDate).IsModified = false;
+                            entityReferance.UpdatedDate=DateTime.Now;
+                            break;
+                        }
+                    }
+                }
+            }
+            
+            return base.SaveChangesAsync(cancellationToken);    
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

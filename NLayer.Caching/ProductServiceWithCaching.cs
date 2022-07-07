@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using AutoMapper;
+﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using NLayer.Core;
@@ -8,10 +7,11 @@ using NLayer.Core.Repositories;
 using NLayer.Core.Services;
 using NLayer.Core.UnitOfWorks;
 using NLayer.Service.Exceptions;
+using System.Linq.Expressions;
 
 namespace NLayer.Caching
 {
-    public class ProductServiceWithCaching:IProductService
+    public class ProductServiceWithCaching : IProductService
     {
 
         private const string CacheProductKey = "productsKey";
@@ -27,7 +27,7 @@ namespace NLayer.Caching
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
 
-            if (!_memoryCache.TryGetValue(CacheProductKey,out _))
+            if (!_memoryCache.TryGetValue(CacheProductKey, out _))
             {
                 _memoryCache.Set(CacheProductKey, _productRepository.GetProductsWithCategory().Result);
             }
@@ -37,11 +37,11 @@ namespace NLayer.Caching
         {
             var product = _memoryCache.Get<List<Product>>(CacheProductKey).FirstOrDefault(x => x.Id == id);
 
-            if (product==null)
+            if (product == null)
             {
                 throw new NotFoundException($"{typeof(Product).Name} ({id}) not found");
             }
-            
+
             return await Task.FromResult(product);
         }
 
@@ -99,7 +99,7 @@ namespace NLayer.Caching
             await CacheAllProductsAsync();
         }
 
-        public Task<CustomResponseDto<List<ProductWithCategoryDto>>> GetProductsWithCategory()
+        public Task<List<ProductWithCategoryDto>> GetProductsWithCategory()
         {
 
             var products = _memoryCache.Get<IEnumerable<Product>>(CacheProductKey);
@@ -108,7 +108,7 @@ namespace NLayer.Caching
 
             var productsWithCategoryDto = _mapper.Map<List<ProductWithCategoryDto>>(products);
 
-            return Task.FromResult(CustomResponseDto<List<ProductWithCategoryDto>>.Success(200,productsWithCategoryDto));
+            return Task.FromResult(productsWithCategoryDto);
         }
 
         public async Task CacheAllProductsAsync()

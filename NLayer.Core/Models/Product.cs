@@ -1,6 +1,6 @@
 ﻿namespace NLayer.Core
 {
-    public class Product:BaseEntity
+    public class Product : BaseEntity
     {
         public string? Name { get; set; }
 
