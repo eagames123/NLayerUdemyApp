@@ -4,7 +4,7 @@ using NLayer.Core;
 
 namespace NLayer.Repository.Configurations
 {
-    internal class ProductConfiguration:IEntityTypeConfiguration<Product>
+    internal class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
         public void Configure(EntityTypeBuilder<Product> builder)
         {

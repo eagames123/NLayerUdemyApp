@@ -16,7 +16,7 @@ namespace NLayer.Repository.Seeds
                 Price = 100,
                 Stock = 10,
                 CreatedDate = DateTime.Now
-            },new Product()
+            }, new Product()
             {
                 Id = 2,
                 Name = "Kalem 2",

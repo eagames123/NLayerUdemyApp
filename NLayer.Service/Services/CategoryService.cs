@@ -7,7 +7,7 @@ using NLayer.Core.UnitOfWorks;
 
 namespace NLayer.Service.Services
 {
-    public class CategoryService:Service<Category>,ICategoryService
+    public class CategoryService : Service<Category>, ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
         private readonly IMapper _mapper;

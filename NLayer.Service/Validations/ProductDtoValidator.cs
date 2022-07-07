@@ -3,7 +3,7 @@ using NLayer.Core.DTOs;
 
 namespace NLayer.Service.Validations
 {
-    public class ProductDtoValidator:AbstractValidator<ProductDto>
+    public class ProductDtoValidator : AbstractValidator<ProductDto>
     {
         public ProductDtoValidator()
         {
@@ -15,7 +15,7 @@ namespace NLayer.Service.Validations
 
             RuleFor(x => x.Stock).InclusiveBetween(1, int.MaxValue).WithMessage("{PropertyName} must be gerater 0");
 
-            RuleFor(x => x.CategoryId).InclusiveBetween(1, int.MaxValue).WithMessage("{PropertyName} must be greater 0");
+            //RuleFor(x => x.CategoryId).InclusiveBetween(1, int.MaxValue).WithMessage("{PropertyName} must be greater 0");
         }
     }
 }
