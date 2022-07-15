@@ -8,6 +8,7 @@ using System.Reflection;
 using FluentValidation.AspNetCore;
 using NLayer.Service.Validations;
 using NLayer.Web;
+using NLayer.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,14 @@ builder.Services.AddDbContext<AppDbContext>(x =>
         option.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext))?.GetName().Name);
     });
 });
+
+
+builder.Services.AddHttpClient<ProductApiService>(options =>
+    options.BaseAddress = new Uri(builder.Configuration["BaseUrl"]));
+
+builder.Services.AddHttpClient<CategoryApiService>(options =>
+    options.BaseAddress = new Uri(builder.Configuration["BaseUrl"]));
+
 
 builder.Services.AddScoped(typeof(NotFoundFilter<>));
 

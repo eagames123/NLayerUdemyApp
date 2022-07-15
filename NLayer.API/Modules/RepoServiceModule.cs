@@ -32,7 +32,7 @@ namespace NLayer.API.Modules
             builder.RegisterAssemblyTypes(apiAssembly, repoAssembly, serviceAssebly)
                 .Where(x => x.Name.EndsWith("Service")).AsImplementedInterfaces().InstancePerLifetimeScope();
 
-            builder.RegisterType<ProductServiceWithCaching>().As<IProductService>();
+            //builder.RegisterType<ProductServiceWithCaching>().As<IProductService>();
 
             //InstancePerLifetimeScope = addscoped karşılık gelmektedir.
             //InstancePerDependency = addtransient karşılık gelmektedir.
